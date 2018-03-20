@@ -63,7 +63,11 @@ func (c *Client) Consume(cons *Consumer) {
 	} else {
 		// if errr it doesn't connect, log fix, do things
 		msgFmt := "Error! Consume from cony library - '%s' - queue '%s'"
-		log.Printf(msgFmt, err.Error(), cons.GetCopyOfQueue().Name)
+		queueName := ""
+		if *cons != (Consumer{}) {
+			queueName = cons.GetCopyOfQueue().Name
+		}
+		log.Printf(msgFmt, err.Error(), queueName)
 	}
 }
 
