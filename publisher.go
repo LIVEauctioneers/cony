@@ -45,6 +45,14 @@ func (p *Publisher) Write(b []byte) (int, error) {
 	return len(b), p.Publish(pub)
 }
 
+func (p *Publisher) GetExchange() string {
+	return p.exchange
+}
+
+func (p *Publisher) GetRoutingKey() string {
+	return p.key
+}
+
 // PublishWithRoutingKey used to publish custom amqp.Publishing and routing key
 //
 // WARNING: this is blocking call, it will not return until connection is

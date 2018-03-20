@@ -62,7 +62,8 @@ func (c *Client) Consume(cons *Consumer) {
 		go cons.serve(c, ch)
 	} else {
 		// if errr it doesn't connect, log fix, do things
-		log.Printf("Error! Consume from cony library - '%s'", err.Error())
+		msgFmt := "Error! Consume from cony library - '%s' - queue '%s'"
+		log.Printf(msgFmt, err.Error(), cons.GetCopyOfQueue().Name)
 	}
 }
 
@@ -79,7 +80,12 @@ func (c *Client) Publish(pub *Publisher) {
 	c.publishers[pub] = struct{}{}
 	if ch, err := c.channel(); err == nil {
 		go pub.serve(c, ch)
+	} else {
+		// if errr it doesn't connect, log fix, do things
+		msgFmt := "Error! Publish from cony library - '%s' - exchange '%s' - routing key '%s'"
+		log.Printf(msgFmt, err.Error(), pub.GetExchange(), pub.GetRoutingKey())
 	}
+
 }
 
 func (c *Client) deletePublisher(pub *Publisher) {
@@ -190,6 +196,10 @@ func (c *Client) Loop() bool {
 		ch1, err := c.channel()
 		if err == nil {
 			go cons.serve(c, ch1)
+		} else {
+			// if errr it doesn't connect, log fix, do things
+			msgFmt := "Error! Consume from cony library - '%s' - queue '%s'"
+			log.Printf(msgFmt, err.Error(), cons.GetCopyOfQueue().Name)
 		}
 	}
 
@@ -197,6 +207,10 @@ func (c *Client) Loop() bool {
 		ch1, err := c.channel()
 		if err == nil {
 			go pub.serve(c, ch1)
+		} else {
+			// if errr it doesn't connect, log fix, do things
+			msgFmt := "Error! Publish from cony library - '%s' - exchange '%s' - routing key '%s'"
+			log.Printf(msgFmt, err.Error(), pub.GetExchange(), pub.GetRoutingKey())
 		}
 	}
 
