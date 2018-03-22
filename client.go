@@ -47,9 +47,18 @@ func (c *Client) Declare(d []Declaration) {
 	defer c.l.Unlock()
 	c.declarations = append(c.declarations, d...)
 	if ch, err := c.channel(); err == nil {
+		defer func() {
+			err = ch.Close()
+			if err != nil {
+				log.Println("Error! cony library - Failed to close channel after declare")
+			}
+		}()
 		for _, declare := range d {
 			declare(ch)
 		}
+	} else {
+		// if errr it doesn't connect, log fix, do things
+		log.Println("Error! cony library - Declare failed to open channel")
 	}
 }
 
