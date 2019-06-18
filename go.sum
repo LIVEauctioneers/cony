@@ -1,2 +1,2 @@
-github.com/LIVEauctioneers/amqp v0.0.0-20190618230118-aa7ca728162f h1:QMxnzWCH/Hr8fnTYkSuqj66t4/qBouUJHPBBaOV4CA8=
-github.com/LIVEauctioneers/amqp v0.0.0-20190618230118-aa7ca728162f/go.mod h1:JOc8ziVe0bc5KhnG+0mOfjC8FGk08e0Bz0ZyaYbq8pk=
+github.com/LIVEauctioneers/amqp v1.0.0 h1:v7NKYfTYUVY+pS7ag/r/7AdryI5FMPRYYK9sRRY0uUs=
+github.com/LIVEauctioneers/amqp v1.0.0/go.mod h1:JOc8ziVe0bc5KhnG+0mOfjC8FGk08e0Bz0ZyaYbq8pk=
