@@ -1,4 +1,4 @@
-package cony
+package LAcony
 
 import (
 	"errors"
@@ -7,7 +7,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 const (

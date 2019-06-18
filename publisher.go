@@ -1,10 +1,10 @@
-package cony
+package LAcony
 
 import (
 	"errors"
 	"sync"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 	"log"
 )
 

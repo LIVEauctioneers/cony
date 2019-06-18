@@ -1,10 +1,10 @@
-package cony
+package LAcony
 
 import (
 	"errors"
 	"testing"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 func TestNewClient(t *testing.T) {

@@ -1,12 +1,12 @@
-package cony_test
+package LAcony_test
 
 import (
 	"log"
 	"os"
 	"time"
 
-	"github.com/LIVEauctioneers/cony"
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
+	cony "github.com/LIVEauctioneers/LAcony"
 )
 
 func Example() {

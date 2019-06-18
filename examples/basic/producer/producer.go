@@ -4,8 +4,8 @@ import (
 	"flag"
 	"fmt"
 
-	"github.com/LIVEauctioneers/cony"
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
+	cony "github.com/LIVEauctioneers/LAcony"
 	"time"
 )
 

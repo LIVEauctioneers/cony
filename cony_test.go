@@ -1,6 +1,6 @@
-package cony
+package LAcony
 
-import "github.com/LIVEauctioneers/amqp"
+import amqp "github.com/LIVEauctioneers/LAamqp"
 
 type mqDeleterTest struct {
 	_deletePublisher func(*Publisher)

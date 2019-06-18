@@ -1,4 +1,4 @@
-package cony
+package LAcony
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 func TestAutoAck(t *testing.T) {

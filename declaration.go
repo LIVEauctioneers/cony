@@ -1,6 +1,6 @@
-package cony
+package LAcony
 
-import "github.com/LIVEauctioneers/amqp"
+import amqp "github.com/LIVEauctioneers/LAamqp"
 
 // Declaration is a callback type to declare AMQP queue/exchange/binding
 type Declaration func(Declarer) error

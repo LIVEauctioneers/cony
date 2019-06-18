@@ -1,4 +1,4 @@
-package cony
+package LAcony
 
 import (
 	"fmt"
@@ -7,7 +7,7 @@ import (
 
 	"log"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 // ConsumerOpt is a consumer's functional option type
@@ -30,6 +30,10 @@ type Consumer struct {
 
 func (c *Consumer) GetCopyOfQueue() Queue {
 	return *c.q
+}
+
+func (c *Consumer) GetQueueName() string {
+	return c.q.Name
 }
 
 // Deliveries return deliveries shipped to this consumer

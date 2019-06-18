@@ -1,4 +1,4 @@
-package cony
+package LAcony
 
 import (
 	"bytes"
@@ -6,7 +6,7 @@ import (
 	"io"
 	"testing"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 func TestPublisherImplements_io_Writer(t *testing.T) {

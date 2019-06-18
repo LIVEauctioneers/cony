@@ -1,9 +1,9 @@
-package cony
+package LAcony
 
 import (
 	"testing"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 type testDeclarer struct {

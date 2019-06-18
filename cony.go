@@ -1,12 +1,12 @@
-// Package cony is a high-level wrapper around http://github.com/streadway/amqp library,
+// package LAcony is a high-level wrapper around http://github.com/LIVEauctioneers/amqp library,
 // for working declaratively with AMQP. Cony will manage AMQP
 // connect/reconnect to AMQP broker, along with recovery of consumers.
-package cony
+package LAcony
 
 import (
 	"sync"
 
-	"github.com/LIVEauctioneers/amqp"
+	amqp "github.com/LIVEauctioneers/LAamqp"
 )
 
 // Queue hold definition of AMQP queue
