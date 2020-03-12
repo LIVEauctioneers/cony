@@ -71,7 +71,7 @@ func (c *Client) Consume(cons *Consumer) {
 		go cons.serve(c, ch)
 	} else {
 		// if errr it doesn't connect, log fix, do things
-		msgFmt := "Error! Consume from cony library - '%s' - queue '%s'"
+		msgFmt := "Error! Consume from cony library - '%s' - queue '%s'\n"
 		queueName := ""
 		if *cons != (Consumer{}) {
 			queueName = cons.GetCopyOfQueue().Name
@@ -95,7 +95,7 @@ func (c *Client) Publish(pub *Publisher) {
 		go pub.serve(c, ch)
 	} else {
 		// if errr it doesn't connect, log fix, do things
-		msgFmt := "Error! Publish from cony library - '%s' - exchange '%s' - routing key '%s'"
+		msgFmt := "Error! Publish from cony library - '%s' - exchange '%s' - routing key '%s'\n"
 		log.Printf(msgFmt, err.Error(), pub.GetExchange(), pub.GetRoutingKey())
 	}
 
@@ -211,7 +211,7 @@ func (c *Client) Loop() bool {
 			go cons.serve(c, ch1)
 		} else {
 			// if errr it doesn't connect, log fix, do things
-			msgFmt := "Error! Consume from cony library - '%s' - queue '%s'"
+			msgFmt := "Error! Consume from cony library - '%s' - queue '%s'\n"
 			log.Printf(msgFmt, err.Error(), cons.GetCopyOfQueue().Name)
 		}
 	}
@@ -222,7 +222,7 @@ func (c *Client) Loop() bool {
 			go pub.serve(c, ch1)
 		} else {
 			// if errr it doesn't connect, log fix, do things
-			msgFmt := "Error! Publish from cony library - '%s' - exchange '%s' - routing key '%s'"
+			msgFmt := "Error! Publish from cony library - '%s' - exchange '%s' - routing key '%s'\n"
 			log.Printf(msgFmt, err.Error(), pub.GetExchange(), pub.GetRoutingKey())
 		}
 	}
