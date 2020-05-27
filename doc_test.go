@@ -5,8 +5,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/LIVEauctioneers/cony"
 	"github.com/LIVEauctioneers/amqp"
+	"github.com/LIVEauctioneers/cony"
 )
 
 func Example() {
