@@ -3,6 +3,7 @@ package cony
 import (
 	"fmt"
 	"os"
+	"strings"
 	"sync"
 
 	"log"
@@ -29,7 +30,15 @@ type Consumer struct {
 }
 
 func (c *Consumer) GetCopyOfQueue() Queue {
-	return *c.q
+	// just taking the value of *c.q copies the mutex, which could be dangerous
+	return Queue{
+		Name:       c.q.Name,
+		Durable:    c.q.Durable,
+		AutoDelete: c.q.AutoDelete,
+		Exclusive:  c.q.Exclusive,
+		Args:       c.q.Args,
+		l:          sync.Mutex{},
+	}
 }
 
 // Deliveries return deliveries shipped to this consumer
@@ -51,10 +60,14 @@ func (c *Consumer) Cancel() {
 	defer c.m.Unlock()
 
 	if !c.dead {
-		close(c.deliveries)
-		close(c.stop)
-		c.dead = true
-		log.Printf("Consumer canceled %v\n", c.q.Name)
+		go func() {
+			c.stop <- struct{}{}
+			log.Printf("closing 'deliveries' and 'stop' channels for consumer: %v", c.q.Name)
+			close(c.deliveries)
+			close(c.stop)
+			c.dead = true
+			log.Printf("Consumer canceled %v\n", c.q.Name)
+		}()
 	}
 }
 
@@ -85,17 +98,29 @@ func (c *Consumer) serve(client mqDeleter, ch mqChannel) {
 	if c.reportErr(err2) {
 		return
 	}
-
+	deliveriesClosed := false
 	for {
 		select {
 		case <-c.stop:
 			client.deleteConsumer(c)
-			ch.Close()
+			err := ch.Close()
+			if err != nil {
+				log.Printf("error closing channel for consumer %v", c.q.Name)
+				return
+			}
 			log.Printf("Closed channel for consumer %v\n", c.q.Name)
 			return
 		case d, ok := <-deliveries: // deliveries will be closed once channel is closed (disconnected from network)
 			if !ok {
-				log.Printf("Deliveries channel for consumer %v is closed. Returning from c.serve.\n", c.q.Name)
+				msg := "Deliveries channel for consumer %v is closed"
+				err := fmt.Errorf(strings.ToLower(msg), c.q.Name)
+				if !deliveriesClosed {
+					log.Printf(msg, c.q.Name)
+					deliveriesClosed = true
+					continue
+				}
+				log.Printf("%v. Returning from c.serve.", err)
+				c.errs <- err
 				return
 			}
 			c.deliveries <- d
